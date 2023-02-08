@@ -1,7 +1,14 @@
 package loureiro.hc.ProdutoHC.controller;
 
+import jakarta.validation.Valid;
+import loureiro.hc.ProdutoHC.domain.usuario.DadosAutenticacao;
+import loureiro.hc.ProdutoHC.domain.usuario.Usuario;
+import loureiro.hc.ProdutoHC.infra.security.DadosTokenJWT;
+import loureiro.hc.ProdutoHC.infra.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,3 +33,4 @@ public class AutenticacaoController {
 
         return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
     }
+}

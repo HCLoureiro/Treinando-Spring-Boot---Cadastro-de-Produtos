@@ -40,12 +40,10 @@ public class ProdutoController {
     @org.springframework.transaction.annotation.Transactional
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoProduto dados) {
         var produto = repository.getReferenceById(dados.id());
+        produto.atualizarInformacoes(dados);
         var categoria = repCategoria.getReferenceById(produto.getCategoriaID());
         String descCategoria = categoria.getDescricao();
-
-        produto.atualizarInformacoes(dados);
-
-        return ResponseEntity.ok(new DadosDetalhamentoProduto(produto, descCategoria));
+        return ResponseEntity.ok(new DadosDetalheProduto(produto, descCategoria));
     }
 
     @GetMapping("/{id}")
@@ -53,7 +51,7 @@ public class ProdutoController {
         var produto = repository.getReferenceById(id);
         var categoria = repCategoria.getReferenceById(produto.getCategoriaID());
         String descCategoria = categoria.getDescricao();
-        return ResponseEntity.ok(new DadosDetalhamentoProduto(produto, descCategoria));
+        return ResponseEntity.ok(new DadosDetalheProduto(produto, descCategoria));
     }
     @DeleteMapping("/{id}")
     @Transactional
@@ -62,5 +60,15 @@ public class ProdutoController {
         produto.excluir();
 
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    @org.springframework.transaction.annotation.Transactional
+    public ResponseEntity reativar(@PathVariable Long id) {
+        var produto = repository.getReferenceById(id);
+        produto.reativar(id);
+        var categoria = repCategoria.getReferenceById(produto.getCategoriaID());
+        String descCategoria = categoria.getDescricao();
+        return ResponseEntity.ok(new DadosDetalheProduto(produto, descCategoria));
     }
 }

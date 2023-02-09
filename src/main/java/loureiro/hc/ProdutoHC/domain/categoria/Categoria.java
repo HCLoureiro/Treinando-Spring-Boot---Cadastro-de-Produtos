@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import loureiro.hc.ProdutoHC.domain.produto.DadosAtualizacaoProduto;
 
 @Table(name = "categoria")
 @Entity(name = "Categoria")
@@ -28,5 +29,16 @@ public class Categoria {
         this.codigo = categoria.codigo();
         this.descricao = categoria.descricao();
     }
+    public void atualizarInformacoes(DadosAtualizacaoCategoria dados) {
+        if(dados.descricao() != null){
+            this.descricao = dados.descricao();
+        }
+    }
+    public void excluir() {
+        this.ativo = false;
+    }
 
+    public void reativar(Long id) {
+        this.ativo = true;
+    }
 }

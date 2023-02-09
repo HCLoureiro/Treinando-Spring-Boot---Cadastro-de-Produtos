@@ -30,14 +30,19 @@ public class Produto {
         this.descricao = produto.descricao();
         this.categoriaID = produto.categoriaID();
     }
-
     public void atualizarInformacoes(DadosAtualizacaoProduto dados) {
         if(dados.descricao() != null){
             this.descricao = dados.descricao();
         }
-    }
 
+        if(dados.categoriaID() != null){
+            this.categoriaID = dados.categoriaID();
+        }
+    }
     public void excluir() {
         this.ativo = false;
+    }
+    public void reativar(Long id) {
+        this.ativo = true;
     }
 }
